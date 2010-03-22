@@ -30,6 +30,7 @@ namespace tge
 		Obj& getVar(const String& name) throw(tge::except);
 		void removeVar(const String& name);
 
+		/** Queries if some commands exists. */
 		bool commandExists(const String& cmdName);
 
 		static Cmd*	getUnknownCmd(void);

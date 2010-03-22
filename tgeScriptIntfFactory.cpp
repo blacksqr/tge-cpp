@@ -128,8 +128,6 @@ namespace tge
 				break;
 			}
 		}
-
-		
 		
 		// Factory command not found
 		mInterp->_panic("The command named \"" + cmdName + "\" not found.");

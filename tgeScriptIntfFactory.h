@@ -20,7 +20,7 @@ namespace tge
 		ScriptIntfFactory(void);
 		virtual ~ScriptIntfFactory(void);
 		void setInterp(Interpreter* interp);
-		/** Create will see to make new command, register new variable to point to 
+		/** 'Create' will see to make new command, register new variable to point to 
 			object and so on.  In the overrided _createImp we dont have to care about 
 			these messy stuff. The situation is the same with destroy.
 		*/
@@ -30,17 +30,16 @@ namespace tge
 		/** List the names of all ScriptIntf instances of class className. */
 		ScriptIntfInstanceList& listInstances(const String& className);
 		
-		/** Callback, returns string vector containing.
-			names of classe this factory could create.
-			@note These class names will be dealt with in the following wasy:
-				  [CLASSNAME] create command will be created for creation;
-				  [CLASSNAME] destroy command will be created for destroy;
-				  [CLASSNAME] list command will list all the instances.
+		/** @brief Returns string vector containing.
+			names of classes this factory could handle. Later on, the class names could be
+			used as commands in Tcl script.
+			@note These class names will be dealt with in the following ways:
+				  "[CLASSNAME] create" command will create an ScriptIntf object instance;
+				  "[CLASSNAME] destroy" command will destroy an ScriptIntf object instance;
+				  "[CLASSNAME] list" command will list all the instances.
 		*/
 		const StringVector& getCapabilities(void) const;
 
-		// Overrided	
-		// virtual CmdStatus run(const String& cmdName, const Obj& argList, size_t argc);
 		virtual CmdStatus run(const String& cmdName, const Obj& arg1, const Obj& arg2, const Obj& argRest, size_t argRestC);
 	
 	protected:

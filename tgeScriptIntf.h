@@ -14,16 +14,17 @@ namespace tge
 	public:
 		typedef std::map<String, Obj> PropBag;
 	public:
-		/** A default ctor is a must. */
+		/** @brief A default ctor is a must. */
 		ScriptIntf(void);
 
-		/** @bug FIXED. Added this virtual destructor on Sep 26th, 2009. 
+		/** @bug FIXED. Added this 'virtual' keyword to destructor on Sep 26th, 2009. 
 			Without this method there have been BIG problems. 
 		*/
 		virtual ~ScriptIntf(void);
 		
-		/** MUST be called after consturctor with proper 
-			scriptingName and className information.
+		/** @brief This init method MUST be called explicitly after consturction.
+			@param scriptingName Name of this factory in TCL script.
+			@param className Name of the class of this factory, used for 
 		*/
 		void init(const String& scriptingName, const String& className);
 
@@ -42,7 +43,7 @@ namespace tge
 	
 
 
-		/** No modify this */
+		/** @brief Forward method, do not override this in subclasses. */
 		virtual CmdStatus run(const String& cmdName, const Obj& arg1, const Obj& arg2, const Obj& argRest, size_t argRestc);
 
 		/** @note Getter and setter should not appear in critical paths. */

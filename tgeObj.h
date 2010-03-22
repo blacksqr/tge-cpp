@@ -185,16 +185,19 @@ namespace tge
 		*/
 		Obj& lrange(size_t startIndex, size_t endIndex);
 
+		/** @brief Returns the enclosed Tcl_Obj.
+			@details Manipulating the Tcl_Obj directly might result in unpredictable result.
+		*/
 		Tcl_Obj* _getTclObj(void) const;
 		
-
-		/** Directly change current Tcl_Obj content. 
-			Do not use this unless you know what you are doing. 
-			So check and assert if this obj is currently shared!
+		/** @brief Directly change current Tcl_Obj content. 
+			
+			@details 
+			Do not use this method unless you know what you are doing. 
+			Make sure to check and assert if this obj is currently being shared!
 			Also if given obj prt is NULL, this method will release current
 			Tcl_Obj ptr and set it to NULL.
-
-			Use Obj::isNull() to check after this method is called.
+			Use Obj::isNull() to check null after this method is called.
 		*/
 		void _setTclObj(Tcl_Obj* const obj);
 	protected:
@@ -202,8 +205,6 @@ namespace tge
 	protected:
 		Tcl_Obj*		mTclObj;
 		Interpreter*	mInterp;
-		// Tcl_Interp*		mTclInterp;
-    
 	};
 
 }

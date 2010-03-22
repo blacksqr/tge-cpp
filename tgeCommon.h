@@ -15,11 +15,13 @@
 //   tgeCommon.h
 //   @purpose:  Basic stuff about Tcl-Game-Extension (TGE).
 //   @author:   Jeffrey Bian
-//	 @note:		No UNICODE support for now for simplicity. Never feed MBCS / Unicode
+//	 @note:		1. No UNICODE support for now for simplicity. Never feed MBCS / Unicode
 //				chars!!!!
+//				2. Needs some Ogre support for types such as VectorX, Any, so I don't bother 
+//				writing my own versions. Currently compiles under Ogre1.7 (dynamica linkage).
 //	 @version	1.0
-//   @date:		Sep 2009
-
+//   @date:		Sep 2009, March, 2010
+//	 @modified:  
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -29,28 +31,29 @@
 #include <vector>
 #include <cassert>
 #include <map>
+#include <iostream>
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 extern "C" {
 #include <tcl.h>
 }
-if _WITH_OGRE==1
 #include <OgrePrerequisites.h>
 #include <OgreString.h>
+#include <OgreStringVector.h>
 #include <OgreQuaternion.h>
 #include <OgreVector4.h>
 #include <OgreVector3.h>
 #include <OgreVector2.h>
 #include <OgreAny.h>
-#endif
-
+// Below for visualC++ only
 #pragma comment(lib, "tcl85.lib")
 #ifndef NULL
 #define NULL 0
 #endif
 
 // And once Factory create called, creates A Cmd with the same name of the object
-// e.g., ActorPump create Jeff; // Jeff is a new command now! and also set a var with same name
+// ActorPump create Jeff; 
+// Jeff is a new command now! and also a var with same name
 //								// The pointer address of that obj in CPP
 //		Jeff pukes;
 //		puts $::Jeff; ---> 0x130322
@@ -76,18 +79,9 @@ namespace tge
 	class UnknownCmd;
 	class ScriptIntf;
 	class ScriptIntfFactory;
+
 	typedef int int32;
 	typedef unsigned int uint32;
-#ifdef __OgrePrerequisites_H__
-	typedef float Real;
-	typedef Ogre::String String;
-	typedef std::vector<String> StringVector;
-	typedef Ogre::Vector2 Vector2;
-	typedef Ogre::Vector3 Vector3;
-	typedef Ogre::Vector4 Vector4;
-	typedef Ogre::Quaternion Quaternion;
-	typedef Ogre::Any Any;
-#else
 	using Ogre::Real;
 	using Ogre::StringVector;
 	using Ogre::String;
@@ -96,7 +90,7 @@ namespace tge
 	using Ogre::Vector4;
 	using Ogre::Quaternion;
 	using Ogre::Any;
-#endif
+
 	typedef std::list<Obj*> ObjList;
 
 
@@ -111,8 +105,21 @@ namespace tge
 	public:
 		except(const String& what) : what_(what) {}
 		const String& what(void) const {return what_;}
+		void out(void) const
+		{
+			std::cerr<<what_<<std::endl;
+		}
 	protected:
 		String what_;
 	};
 
+	// Foward decls
+	class Cmd;
+	class Engine;
+	class Interprter;
+	class Obj;
+	class Result;
+	class ScriptIntf;
+	class ScriptIntfFactory;
+	class UnknownCmd;
 }
