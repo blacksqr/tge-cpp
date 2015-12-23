@@ -1,0 +1,1 @@
+A transparent middleware that bridges Tcl and C++, intended for Ogre3D framework. It enables access between Tcl and C++ much easier. A small stage script engine was implemented upon it.
